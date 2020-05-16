@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lan="en">
+​
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    ​
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Stylish', sans-serif;
+        }
+
+        ​ .main {
+            width: 700px;
+            margin: 10px auto;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function order() {
+            alert("주문 완료")
+        }
+    </script>
+</head>
+​
+
+<body>
+    <div class="main">
+        <div>
+            <img style="width: 300pt;"
+                src="https://postfiles.pstatic.net/MjAyMDAyMjVfMjUz/MDAxNTgyNTc2MzgyODYz.ebl2UkrCp2o6acEn_VvVXlJ3sTQUyb1fUZTrrmUWVmcg.HBWda4DcjyVeykEJgfwNHleG4UrGRfaKlVzUFRirnQIg.JPEG.jeoktoma0427/0e11dd84bb177439188cd5cb8a54ba4b854a94cf0a33aa.jpg?type=w966">
+            <br>
+            <br>
+            <p><span style="font-size: 20pt;">상품 제목 : Galaxy S20</span>
+                <br>가격 : 2,000,000 / 개</p>
+            <p>당신이 원하던,
+                <br>
+                가장 갤럭시 다운 혁신
+            </p>
+        </div>
+        ​
+        <div>
+            <p><span style="font-size: 20pt;">주문하기</span></p>
+            <div style="width: 500px;">
+                <div class="input-group mb-3" style="padding-left: 159px;">
+
+                    <span class="input-group-text" id="inputGroup-sizing-default">주문자 이름</span> <input type="text"
+                        class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+
+                </div>
+                <div class="input-group mb-3" style="padding-left: 159px;">
+
+                    <label class="input-group-text" for="inputGroupSelect01">수량</label>
+                    <select class="custom-select" id="inputGroupSelect01">
+                        <option selected>선택하세요</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                    </select>
+
+                </div>
+                <div class="input-group mb-3" style="padding-left: 159px;">
+
+                    <span class="input-group-text" id="inputGroup-sizing-default">주소 : </span> <input type="text"
+                        class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+
+                </div>
+                <div class="input-group mb-3" style="padding-left: 159px;">
+
+                    <span class="input-group-text" id="inputGroup-sizing-default">전화 번호 : </span> <input type="text"
+                        class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit" onclick="order()">주문하기</button>
+        </div>
+    </div>
+</body>
+​
+
+</html>
