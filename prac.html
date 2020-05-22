@@ -34,8 +34,31 @@
     </style>
     <script>
         function order() {
-            alert("주문 완료")
+            if ($("#Order_Name").val() == "") {
+                alert('이름을 입력해주세요')
+            } else if ($("#Order_Count").val() == "선택하세요") {
+                alert('수량을 선택해주세요')
+            } else if ($("#Order_Address").val() == "") {
+                alert('주소를 입력해주세요')
+            } else if ($("#Order_PhoneNumber").val() == "") {
+                alert('휴대폰번호를 입력해주세요')
+            } else {
+                alert('주문 완료')
+            }
         }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+            $(document).ready(function () {
+                $.ajax({
+                    type: "get",
+                    url: "https://api.manana.kr/exchange/rate.json",
+                    data: {},
+                    success: function (response) {
+                        $("#ex_rate").text(response[1]["rate"]);
+                    }
+                })
+            })
     </script>
 </head>
 
@@ -55,18 +78,25 @@
         </div>
 
         <div>
+            <p>
+                달러-원 환율 :
+                <span id="ex_rate"></span>
+            </p>
+        </div>
+
+        <div>
             <p><span style="font-size: 20pt;">주문하기</span></p>
             <div style="width: 1000px;">
                 <div class="input-group mb-3" style="padding-left: 159px;">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">주문자 이름</span> <input type="text"
+                        <span class="input-group-text">주문자 이름</span> <input id="Order_Name" type="text"
                             class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
                 </div>
                 <div class="input-group mb-3" style="padding-left: 159px;">
                     <div class="input-group-prepend">
                         <label class="input-group-text" for="inputGroupSelect01">수량</label>
-                        <select class="custom-select" id="inputGroupSelect01">
+                        <select class="custom-select" id="Order_Count">
                             <option selected>선택하세요</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -77,14 +107,15 @@
                 </div>
                 <div class="input-group mb-3" style="padding-left: 159px;">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">주소 : </span> <input type="text"
+                        <span class="input-group-text">주소 : </span> <input id="Order_Address" type="text"
                             class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
                     </div>
                 </div>
                 <div class="input-group mb-3" style="padding-left: 159px;">
                     <div class="input-group-prepend">
-                        <span class="input-group-text" id="inputGroup-sizing-default">전화 번호 : </span> <input type="text"
-                            class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                        <span class="input-group-text">전화 번호 : </span> <input id="Order_PhoneNumber"
+                            type="text" class="form-control" aria-label="Default"
+                            aria-describedby="inputGroup-sizing-default">
                     </div>
                 </div>
             </div>
