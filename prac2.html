@@ -1,98 +1,63 @@
-<!DOCTYPE html>
-<html lan="en">
-​
+<!doctype html>
+<html lang="ko">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    ​
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-    <!-- 구글폰트 -->
-    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
-    <style>
-        * {
-            font-family: 'Stylish', sans-serif;
-        }
+    <meta charset="UTF-8">
+    <title>jQuery 연습하고 가기!</title>
 
-        ​ .main {
-            width: 700px;
-            margin: 10px auto;
-            text-align: center;
+    <!-- jQuery를 import 합니다 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <style type="text/css">
+        div.question-box {
+            margin: 10px 0 20px 0;
         }
     </style>
+
     <script>
-        function order() {
-            alert("주문 완료")
+        function q1() {
+            $("#names-q1").empty();
+            $.ajax({
+                type : "get",
+                url : "http://openapi.seoul.go.kr:8088/6d4d776b466c656533356a4b4b5872/json/RealtimeCityAir/1/99",
+                data : "{}",
+                success : function (response) {
+                    let A = response["RealtimeCityAir"]["row"];
+                    let List = $("#names-q1");
+                    for (i = 0; i < A.length; i++) {
+                        let B = A[i]["MSRSTE_NM"];
+                        let C = A[i]["IDEX_MVL"];
+                        if(C>70){
+                            List = List.append(`<li style="color: red;">${B + C}</li>`);
+                        }
+                        else{
+                            List = List.append(`<li>${B + C}</li>`);
+                        }
+                    }
+                }
+            })
         }
     </script>
+
 </head>
-​
 
 <body>
-    <div class="main">
-        <div>
-            <img style="width: 300pt;"
-                src="https://postfiles.pstatic.net/MjAyMDAyMjVfMjUz/MDAxNTgyNTc2MzgyODYz.ebl2UkrCp2o6acEn_VvVXlJ3sTQUyb1fUZTrrmUWVmcg.HBWda4DcjyVeykEJgfwNHleG4UrGRfaKlVzUFRirnQIg.JPEG.jeoktoma0427/0e11dd84bb177439188cd5cb8a54ba4b854a94cf0a33aa.jpg?type=w966">
-            <br>
-            <br>
-            <p><span style="font-size: 20pt;">상품 제목 : Galaxy S20</span>
-                <br>가격 : 2,000,000 / 개</p>
-            <p>당신이 원하던,
-                <br>
-                가장 갤럭시 다운 혁신
-            </p>
-        </div>
-        ​
-        <div>
-            <p><span style="font-size: 20pt;">주문하기</span></p>
-            <div style="width: 500px;">
-                <div class="input-group mb-3" style="padding-left: 159px;">
+    <h1>jQuery+Ajax의 조합을 연습하자!</h1>
 
-                    <span class="input-group-text" id="inputGroup-sizing-default">주문자 이름</span> <input type="text"
-                        class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+    <hr />
 
-                </div>
-                <div class="input-group mb-3" style="padding-left: 159px;">
-
-                    <label class="input-group-text" for="inputGroupSelect01">수량</label>
-                    <select class="custom-select" id="inputGroupSelect01">
-                        <option selected>선택하세요</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                    </select>
-
-                </div>
-                <div class="input-group mb-3" style="padding-left: 159px;">
-
-                    <span class="input-group-text" id="inputGroup-sizing-default">주소 : </span> <input type="text"
-                        class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-
-                </div>
-                <div class="input-group mb-3" style="padding-left: 159px;">
-
-                    <span class="input-group-text" id="inputGroup-sizing-default">전화 번호 : </span> <input type="text"
-                        class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
-
-                </div>
-            </div>
-            <button class="btn btn-primary" type="submit" onclick="order()">주문하기</button>
-        </div>
+    <div class="question-box">
+        <h2>1. 서울시 OpenAPI(실시간 미세먼지 상태)를 이용하기</h2>
+        <p>모든 구의 미세먼지를 표기해주세요</p>
+        <p>업데이트 버튼을 누를 때마다 지웠다 새로 씌여져야 합니다.</p>
+        <button onclick="q1()">업데이트</button>
+        <ul id="names-q1">
+            <li>중구 : 82</li>
+            <li>종로구 : 87</li>
+            <li>용산구 : 84</li>
+            <li>은평구 : 82</li>
+        </ul>
     </div>
 </body>
-​
 
 </html>
