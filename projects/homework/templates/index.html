@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lan="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    ​
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <!-- 구글폰트 -->
+    <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Stylish', sans-serif;
+        }
+
+        .main {
+            width: 700px;
+            margin: 10px auto;
+            text-align: center;
+        }
+    </style>
+    <script>
+        function order() {
+
+            let TOrderName = $("#Order_Name").val()
+            let TOrderCount = $("#Order_Count").val()
+            let TOrderAddress = $("#Order_Address").val()
+            let TOrderNumber = $("#Order_PhoneNumber").val()
+
+            if ($("#Order_Name").val() == "") {
+                alert('이름을 입력해주세요')
+            } else if ($("#Order_Count").val() == "선택하세요") {
+                alert('수량을 선택해주세요')
+            } else if ($("#Order_Address").val() == "") {
+                alert('주소를 입력해주세요')
+            } else if ($("#Order_PhoneNumber").val() == "") {
+                alert('휴대폰번호를 입력해주세요')
+            } else {
+                alert('주문 완료')
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/TOrders",
+                data: { "TOrderNameGive": TOrderName, "TOrderCountGive": TOrderCount, "TOrderAddressGive": TOrderAddress, "TOrderNumberGive": TOrderNumber },
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        alert(response['TOrders']);
+                        window.location.reload();
+                    }
+                }
+            })
+        }
+    </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+         $(document).ready(function () {
+            $('#TOrder-list').html('');
+            listing();
+        });
+
+        function listing(){
+            $.ajax({
+                type: "GET",
+                url: "/TOrders",
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                       let TOrder = response["TOrders"]
+                       for(i = 0; i<TOrder.length; i++){
+                           let TOrder_list = response["TOrders"]
+                           takeOrder(TOrder_list[i]["TOrderName"],TOrder_list[i]["TOrderCount"],TOrder_list[i]["TOrderAddress"],TOrder_list[i]["TOrderNumber"])
+                       }
+                    } else {
+                        alert('주문 내용을 불러오지 못했습니다.');
+                    }
+                }
+            })
+        }
+
+        function takeOrder(Name,Count,Address,Number){
+            let temp_list = 
+                `<tbody id = "TOrder-list">
+                    <tr>
+                        <td scope="row" id="order_name_t">${Name}</td>
+                        <td id="order_count_t">${Count}</td>
+                        <td id="order_address_t">${Address}</td>
+                        <td id="order_number_t">${Number}</td>
+                    </tr>
+                </tbody>`;
+            $("#TOrder-list").append(temp_list)
+        }
+
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <div>
+            <img style="width: 300pt;"
+                src="https://postfiles.pstatic.net/MjAyMDAyMjVfMjUz/MDAxNTgyNTc2MzgyODYz.ebl2UkrCp2o6acEn_VvVXlJ3sTQUyb1fUZTrrmUWVmcg.HBWda4DcjyVeykEJgfwNHleG4UrGRfaKlVzUFRirnQIg.JPEG.jeoktoma0427/0e11dd84bb177439188cd5cb8a54ba4b854a94cf0a33aa.jpg?type=w966">
+            <br>
+            <br>
+            <p><span style="font-size: 20pt;">상품 제목 : Galaxy S20</span>
+                <br>가격 : 2,000,000 / 개</p>
+            <p>당신이 원하던,
+                <br>
+                가장 갤럭시 다운 혁신
+            </p>
+        </div>
+
+        <div>
+            <p>
+                달러-원 환율 :
+                <span id="ex_rate"></span>
+            </p>
+        </div>
+
+        <div>
+            <p><span style="font-size: 20pt;">주문하기</span></p>
+            <div style="width: 1000px;">
+                <div class="input-group mb-3" style="padding-left: 159px;">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">주문자 이름</span> <input id="Order_Name" type="text"
+                            class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </div>
+                <div class="input-group mb-3" style="padding-left: 159px;">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" for="inputGroupSelect01">수량</label>
+                        <select class="custom-select" id="Order_Count">
+                            <option selected>선택하세요</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                        </select>
+
+                    </div>
+                </div>
+                <div class="input-group mb-3" style="padding-left: 159px;">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">주소 : </span> <input id="Order_Address" type="text"
+                            class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </div>
+                <div class="input-group mb-3" style="padding-left: 159px;">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">전화 번호 : </span> <input id="Order_PhoneNumber" type="text"
+                            class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default">
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit" onclick="order()">주문하기</button>
+        </div>
+        <br>
+        <div>
+            <table class="table table-sm table-dark">
+                <thead>
+                    <tr>
+                        <th scope="col">주문자 이름</th>
+                        <th scope="col">수량</th>
+                        <th scope="col">주소</th>
+                        <th scope="col">휴대폰 번호</th>
+                    </tr>
+                </thead>
+                <tbody id = "TOrder-list">
+                    <tr>
+                        <td scope="row" id="order_name_t">1</td>
+                        <td id="order_count_t">Mark</td>
+                        <td id="order_address_t">Otto</td>
+                        <td id="order_number_t">@mdo</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+    </div>
+</body>
+
+</html>
