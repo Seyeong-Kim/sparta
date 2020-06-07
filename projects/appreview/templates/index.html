@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>앱리뷰</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css" />
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script>
+        $(document).ready(function () {
+            // index.html 로드가 완료되면 자동으로 show_star() 함수를 호출합니다.
+            appreview();
+        });
+
+        function appreview() {
+            $("#reviewlist").empty()
+            $.ajax({
+                type: 'GET',
+                url: '/appreviews/list',
+                data: {},
+                success: function (response) {
+                    if (response['result'] == 'success') {
+                        let appreviews = response['msg'];
+
+                        for (i = 0; i < appreviews.length; i++) {
+                            let appreview = appreviews[i]
+
+                            let date = appreview["date"]
+                            let click = appreview["click"]
+                            let review = appreview["review"]
+
+                            let temp_list = `<li class="list-group-item">${date}, ${click}, ${review}</li>`
+
+                            $("#reviewlist").append(temp_list)
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</head>
+
+<body>
+    <section class="hero is-warning">
+        <div class="hero-body">
+            <div class="container make-center">
+                <h1 class="title">
+                    앱 리뷰
+                </h1>
+            </div>
+        </div>
+    </section>
+    <div style="padding-left: 159px;">
+        평균 평점 : 3
+    </div>
+    <div style="padding-left: 159px;">
+        <div>
+            <label>평점 선택</label>
+            <select>
+                <option selected>선택하세요</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="3">4</option>
+                <option value="3">5</option>
+            </select>
+            <ul class="list-group" class="overflow-auto">
+                <li class="list-group-item" id = "reviewlist">Cras justo odio</li>
+              </ul>
+        </div>
+    </div>
+</body>
+
+</html>

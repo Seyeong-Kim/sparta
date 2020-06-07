@@ -93,14 +93,12 @@
 
         function takeOrder(Name,Count,Address,Number){
             let temp_list = 
-                `<tbody id = "TOrder-list">
-                    <tr>
+                `<tr>
                         <td scope="row" id="order_name_t">${Name}</td>
                         <td id="order_count_t">${Count}</td>
                         <td id="order_address_t">${Address}</td>
                         <td id="order_number_t">${Number}</td>
-                    </tr>
-                </tbody>`;
+                    </tr>`;
             $("#TOrder-list").append(temp_list)
         }
 
